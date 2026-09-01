@@ -7,8 +7,8 @@
 
 const OSA_CONFIG = {
     // Supabase
-    SUPABASE_URL: 'https://seu-projeto.supabase.co',
-    SUPABASE_ANON_KEY: 'sua-chave-anon-aqui',
+    SUPABASE_URL: 'https://bhwudbpzoksqhrzcvnuh.supabase.co',
+    SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJod3VkYnB6b2tzcWhyemN2bnVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyNTQ3NDgsImV4cCI6MjEwMzgzMDc0OH0.2KmB3t8pjTPM_mCRVY4f5-7jS15dwk1qVJ8RA-qkmaA',
     
     // App
     APP_NAME: 'OSA',
