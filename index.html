@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSA | Official Shop Administrator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="brand-icon">OSA</div>
+                    <div class="brand-text">
+                        <div class="brand-name">OSA</div>
+                        <div class="brand-subtitle">Official Shop Administrator</div>
+                    </div>
+                </div>
+                <div class="store-info">
+                    <div class="store-name" id="current-store-name">Carregando...</div>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <a href="#" class="nav-link active" data-module="dashboard">
+                        <span class="nav-icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Operação</div>
+                    <a href="#" class="nav-link" data-module="sales">
+                        <span class="nav-icon">🛒</span>
+                        <span>Vendas</span>
+                    </a>
+                    <a href="#" class="nav-link" data-module="cash">
+                        <span class="nav-icon">💰</span>
+                        <span>Caixa</span>
+                    </a>
+                    <a href="#" class="nav-link" data-module="products">
+                        <span class="nav-icon">📦</span>
+                        <span>Produtos</span>
+                    </a>
+                    <a href="#" class="nav-link" data-module="warehouse">
+                        <span class="nav-icon">🏭</span>
+                        <span>Armazém</span>
+                    </a>
+                    <a href="#" class="nav-link" data-module="transfers">
+                        <span class="nav-icon">🚚</span>
+                        <span>Transferências</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section" data-role="junior_admin">
+                    <div class="nav-section-title">Estoque</div>
+                    <a href="#" class="nav-link" data-module="inventory">
+                        <span class="nav-icon">📋</span>
+                        <span>Inventário</span>
+                    </a>
+                    <a href="#" class="nav-link" data-module="losses">
+                        <span class="nav-icon">⚠️</span>
+                        <span>Perdas</span>
+                    </a>
+                    <a href="#" class="nav-link" data-module="thefts">
+                        <span class="nav-icon">🚨</span>
+                        <span>Furtos</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section" data-role="admin">
+                    <div class="nav-section-title">Gestão</div>
+                    <a href="#" class="nav-link" data-module="categories">
+                        <span class="nav-icon">🏷️</span>
+                        <span>Categorias</span>
+                    </a>
+                    <a href="#" class="nav-link" data-module="stores">
+                        <span class="nav-icon">🏪</span>
+                        <span>Lojas</span>
+                    </a>
+                    <a href="#" class="nav-link" data-module="users">
+                        <span class="nav-icon">👥</span>
+                        <span>Utilizadores</span>
+                    </a>
+                    <a href="#" class="nav-link" data-module="fuel">
+                        <span class="nav-icon">⛽</span>
+                        <span>Combustível</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section" data-role="junior_admin">
+                    <div class="nav-section-title">Relatórios</div>
+                    <a href="#" class="nav-link" data-module="reports">
+                        <span class="nav-icon">📈</span>
+                        <span>Relatórios</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section" data-role="admin">
+                    <div class="nav-section-title">Sistema</div>
+                    <a href="#" class="nav-link" data-module="closing">
+                        <span class="nav-icon">🔒</span>
+                        <span>Fechamento</span>
+                    </a>
+                    <a href="#" class="nav-link" data-module="settings">
+                        <span class="nav-icon">⚙️</span>
+                        <span>Configurações</span>
+                    </a>
+                    <a href="#" class="nav-link" data-module="diagnostic">
+                        <span class="nav-icon">🔧</span>
+                        <span>Diagnóstico</span>
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="user-avatar">U</div>
+                    <div class="user-details">
+                        <div class="user-name" id="user-name">Utilizador</div>
+                        <div class="user-role" id="user-role">-</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- MAIN CONTENT -->
+        <main class="main-content" id="main-content">
+            <!-- TOPBAR -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="sidebar-toggle" id="sidebar-toggle">☰</button>
+                    <h1 class="page-title" id="page-title">Dashboard</h1>
+                </div>
+                <div class="topbar-right">
+                    <div class="store-selector-wrapper hidden" id="store-selector-wrapper">
+                        <label for="store-selector">Loja:</label>
+                        <select class="store-selector" id="store-selector"></select>
+                    </div>
+                    <button class="btn-logout" id="logout-btn" title="Sair">🚪</button>
+                </div>
+            </header>
+            
+            <!-- CONTENT AREA -->
+            <div class="content-area" id="content-area">
+                <!-- DASHBOARD -->
+                <div class="module" id="module-dashboard">
+                    <div class="stats-grid" id="dashboard-stats"></div>
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+                        <div class="chart-container">
+                            <div class="chart-title">Vendas por Dia</div>
+                            <canvas id="sales-chart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-title">Resumo</div>
+                            <div id="dashboard-summary"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PRODUCTS -->
+                <div class="module hidden" id="module-products">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Produtos</span>
+                            <button class="btn btn-primary btn-sm" id="btn-new-product">+ Novo Produto</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="filters-bar">
+                                <div class="filter-group">
+                                    <label>Pesquisar</label>
+                                    <input type="text" id="product-search" placeholder="Nome ou código...">
+                                </div>
+                                <div class="filter-group">
+                                    <label>Categoria</label>
+                                    <select id="product-filter-category"><option value="">Todas</option></select>
+                                </div>
+                            </div>
+                            <div id="products-table-container"></div>
+                        </div>
+                    </div>
+                    <div id="product-modal-container"></div>
+                </div>
+                
+                <!-- CATEGORIES -->
+                <div class="module hidden" id="module-categories">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Categorias</span>
+                            <button class="btn btn-primary btn-sm" id="btn-new-category">+ Nova Categoria</button>
+                        </div>
+                        <div class="card-body" id="categories-container"></div>
+                    </div>
+                </div>
+                
+                <!-- WAREHOUSE -->
+                <div class="module hidden" id="module-warehouse">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Armazém - Entradas</span>
+                            <button class="btn btn-primary btn-sm" id="btn-new-entry">+ Nova Entrada</button>
+                        </div>
+                        <div class="card-body">
+                            <div id="warehouse-stock-container"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TRANSFERS -->
+                <div class="module hidden" id="module-transfers">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Transferências</span>
+                            <button class="btn btn-primary btn-sm" id="btn-new-transfer">+ Nova Transferência</button>
+                        </div>
+                        <div class="card-body" id="transfers-container"></div>
+                    </div>
+                </div>
+                
+                <!-- SALES -->
+                <div class="module hidden" id="module-sales">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Vendas</span>
+                            <button class="btn btn-primary btn-sm" id="btn-new-sale">+ Nova Venda</button>
+                        </div>
+                        <div class="card-body" id="sales-container"></div>
+                    </div>
+                </div>
+                
+                <!-- CASH -->
+                <div class="module hidden" id="module-cash">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Caixa</span>
+                            <button class="btn btn-primary btn-sm" id="btn-open-cash">Abrir Caixa</button>
+                        </div>
+                        <div class="card-body" id="cash-container"></div>
+                    </div>
+                </div>
+                
+                <!-- INVENTORY -->
+                <div class="module hidden" id="module-inventory">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Inventário</span>
+                            <button class="btn btn-primary btn-sm" id="btn-new-inventory">+ Novo Inventário</button>
+                        </div>
+                        <div class="card-body" id="inventory-container"></div>
+                    </div>
+                </div>
+                
+                <!-- LOSSES -->
+                <div class="module hidden" id="module-losses">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Perdas</span>
+                            <button class="btn btn-primary btn-sm" id="btn-new-loss">+ Registrar Perda</button>
+                        </div>
+                        <div class="card-body" id="losses-container"></div>
+                    </div>
+                </div>
+                
+                <!-- THEFTS -->
+                <div class="module hidden" id="module-thefts">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Furtos</span>
+                            <button class="btn btn-primary btn-sm" id="btn-new-theft">+ Registrar Furto</button>
+                        </div>
+                        <div class="card-body" id="thefts-container"></div>
+                    </div>
+                </div>
+                
+                <!-- STORES -->
+                <div class="module hidden" id="module-stores">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Lojas</span>
+                            <button class="btn btn-primary btn-sm" id="btn-new-store">+ Nova Loja</button>
+                        </div>
+                        <div class="card-body" id="stores-container"></div>
+                    </div>
+                </div>
+                
+                <!-- USERS -->
+                <div class="module hidden" id="module-users">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Utilizadores</span>
+                        </div>
+                        <div class="card-body" id="users-container"></div>
+                    </div>
+                </div>
+                
+                <!-- REPORTS -->
+                <div class="module hidden" id="module-reports">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Relatórios</span>
+                        </div>
+                        <div class="card-body" id="reports-container"></div>
+                    </div>
+                </div>
+                
+                <!-- SETTINGS -->
+                <div class="module hidden" id="module-settings">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Configurações</span>
+                        </div>
+                        <div class="card-body" id="settings-container"></div>
+                    </div>
+                </div>
+                
+                <!-- DIAGNOSTIC -->
+                <div class="module hidden" id="module-diagnostic">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Diagnóstico do Sistema</span>
+                            <button class="btn btn-primary btn-sm" id="btn-run-diagnostic">Executar Testes</button>
+                        </div>
+                        <div class="card-body" id="diagnostic-container"></div>
+                    </div>
+                </div>
+                
+                <!-- CLOSING -->
+                <div class="module hidden" id="module-closing">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Fechamento do Dia</span>
+                        </div>
+                        <div class="card-body" id="closing-container"></div>
+                    </div>
+                </div>
+                
+                <!-- FUEL -->
+                <div class="module hidden" id="module-fuel">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Combustível</span>
+                            <button class="btn btn-primary btn-sm" id="btn-new-fuel">+ Registro</button>
+                        </div>
+                        <div class="card-body" id="fuel-container"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    
+    <!-- OSA Core -->
+    <script src="js/config.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/ui.js"></script>
+    
+    <!-- Modules -->
+    <script src="js/modules/dashboard.js"></script>
+    <script src="js/modules/products.js"></script>
+    <script src="js/modules/categories.js"></script>
+    <script src="js/modules/warehouse.js"></script>
+    <script src="js/modules/transfers.js"></script>
+    <script src="js/modules/sales.js"></script>
+    <script src="js/modules/cash.js"></script>
+    <script src="js/modules/inventory.js"></script>
+    <script src="js/modules/losses.js"></script>
+    <script src="js/modules/thefts.js"></script>
+    <script src="js/modules/stores.js"></script>
+    <script src="js/modules/users.js"></script>
+    <script src="js/modules/reports.js"></script>
+    <script src="js/modules/settings.js"></script>
+    <script src="js/modules/diagnostic.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Inicializar Supabase
+            window.osaSupabase.init();
+            
+            // Inicializar Data Layer
+            window.osaData.init();
+            
+            // Inicializar UI
+            window.osaUI.init();
+            
+            // Inicializar Auth
+            await window.osaAuth.init();
+            
+            // Verificar autenticação
+            if (!window.osaAuth.isAuthenticated()) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Atualizar UI com dados do utilizador
+            window.osaUI.updateUserInterface();
+            
+            // Carregar Dashboard
+            if (window.DashboardModule) {
+                window.DashboardModule.init();
+            }
+            
+            // Escutar mudanças de módulo
+            window.addEventListener('osa:module:load', (e) => {
+                const module = e.detail.module;
+                const moduleMap = {
+                    'dashboard': 'DashboardModule',
+                    'products': 'ProductsModule',
+                    'categories': 'CategoriesModule',
+                    'warehouse': 'WarehouseModule',
+                    'transfers': 'TransfersModule',
+                    'sales': 'SalesModule',
+                    'cash': 'CashModule',
+                    'inventory': 'InventoryModule',
+                    'losses': 'LossesModule',
+                    'thefts': 'TheftsModule',
+                    'stores': 'StoresModule',
+                    'users': 'UsersModule',
+                    'reports': 'ReportsModule',
+                    'settings': 'SettingsModule',
+                    'diagnostic': 'DiagnosticModule'
+                };
+                
+                const moduleClass = moduleMap[module];
+                if (moduleClass && window[moduleClass]) {
+                    window[moduleClass].init();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

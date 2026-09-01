@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - OSA | Official Shop Administrator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-box">
+            <div class="login-brand">
+                <div class="brand-icon">OSA</div>
+                <div class="brand-name">OSA</div>
+                <div class="brand-subtitle">OFFICIAL SHOP ADMINISTRATOR</div>
+            </div>
+            
+            <form class="login-form" id="login-form">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" name="email" required 
+                           placeholder="seu@email.com" autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Palavra-passe</label>
+                    <input type="password" class="form-input" name="password" required 
+                           placeholder="••••••••" autocomplete="current-password">
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-lg" id="login-btn">
+                    Entrar
+                </button>
+            </form>
+            
+            <div class="login-footer">
+                <p>Sistema de Gestão Operacional</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    
+    <!-- OSA Core -->
+    <script src="js/config.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/ui.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Inicializar Supabase
+            window.osaSupabase.init();
+            
+            // Inicializar Auth
+            await window.osaAuth.init();
+            
+            // Se já estiver autenticado, redirecionar
+            if (window.osaAuth.isAuthenticated()) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Form de login
+            const loginForm = document.getElementById('login-form');
+            const loginBtn = document.getElementById('login-btn');
+            
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const email = loginForm.querySelector('[name="email"]').value.trim();
+                const password = loginForm.querySelector('[name="password"]').value;
+                
+                if (!email || !password) {
+                    window.osaUI.showError('Preencha todos os campos');
+                    return;
+                }
+                
+                loginBtn.disabled = true;
+                loginBtn.textContent = 'A entrar...';
+                
+                const result = await window.osaAuth.login(email, password);
+                
+                if (result.ok) {
+                    window.osaUI.showSuccess('Login efetuado com sucesso');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 500);
+                } else {
+                    window.osaUI.showError('Erro de autenticação: ' + result.error);
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Entrar';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
